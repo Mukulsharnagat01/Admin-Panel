@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
 const LoginPage = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +14,7 @@ const LoginPage = ({ onLogin }) => {
         setError('');
         try {
             // Ensure your backend is running on port 5000
-            const res = await axios.post('${API_URL}/api/auth/login', { email, password });
+            const res = await axios.post('https://admin-panel-tz1h.onrender.com/api/auth/login', { email, password });
             localStorage.setItem('token', res.data.token);
             onLogin();
             navigate('/admin');
