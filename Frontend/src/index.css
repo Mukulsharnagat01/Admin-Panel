@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* You can add any custom base styles or global overrides here if absolutely necessary */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
