@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const TemplateList = () => {
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ const TemplateList = () => {
 
     const fetchTemplates = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/templates', {
+            const res = await axios.get('${API_URL}/api/templates', {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setTemplates(res.data);
@@ -29,7 +31,7 @@ const TemplateList = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this template? This action cannot be undone.')) {
             try {
-                await axios.delete(`http://localhost:5000/api/templates/${id}`, {
+                await axios.delete(`${API_URL}/api/templates/${id}`, {
                     headers: { 'x-auth-token': localStorage.getItem('token') }
                 });
                 fetchTemplates(); // Re-fetch templates after deletion

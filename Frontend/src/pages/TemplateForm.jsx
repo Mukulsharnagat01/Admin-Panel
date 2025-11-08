@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const TemplateForm = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -20,7 +22,7 @@ const TemplateForm = () => {
             const fetchTemplate = async () => {
                 setLoading(true);
                 try {
-                    const res = await axios.get(`http://localhost:5000/api/templates/${id}`, {
+                    const res = await axios.get(`${API_URL}/api/templates/${id}`, {
                         headers: { 'x-auth-token': localStorage.getItem('token') }
                     });
                     const { name, description, previewImageUrl, category } = res.data;
@@ -55,10 +57,10 @@ const TemplateForm = () => {
 
         try {
             if (id) {
-                await axios.put(`http://localhost:5000/api/templates/${id}`, templateData, config);
+                await axios.put(`${API_URL}/api/templates/${id}`, templateData, config);
                 setSuccess('Template updated successfully!');
             } else {
-                await axios.post('http://localhost:5000/api/templates', templateData, config);
+                await axios.post('${API_URL}/api/templates', templateData, config);
                 setSuccess('Template created successfully!');
             }
             setTimeout(() => navigate('/admin/templates'), 1500);
