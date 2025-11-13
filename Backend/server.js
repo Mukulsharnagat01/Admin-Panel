@@ -1,5 +1,6 @@
 // server/server.js
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -15,11 +16,12 @@ app.use(express.json()); // Body parser for JSON
 
 // Database Connection
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    dbName: process.env.DB_NAME || 'business_card_db',
 })
     .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.error(err));
+    .catch(err => {
+        console.error('MongoDB connection error:', err.message);
+    });
 
 // Routes
 app.use('/api/auth', authRoutes);

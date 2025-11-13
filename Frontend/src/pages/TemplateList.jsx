@@ -16,10 +16,10 @@ const TemplateList = () => {
 
     const fetchTemplates = async () => {
         try {
-            const res = await axios.get('${API_URL}/api/templates', {
+            const res = await axios.get(`${API_URL}/api/templates`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
-            setTemplates(res.data);
+            setTemplates(Array.isArray(res.data) ? res.data : []);
             setLoading(false);
         } catch (err) {
             console.error('Error fetching templates:', err);

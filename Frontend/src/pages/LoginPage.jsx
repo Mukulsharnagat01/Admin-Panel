@@ -13,8 +13,8 @@ const LoginPage = ({ onLogin }) => {
         e.preventDefault();
         setError('');
         try {
-            // Ensure your backend is running on port 5000
-            const res = await axios.post('https://admin-panel-tz1h.onrender.com/api/auth/login', { email, password });
+            const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const res = await axios.post(`${baseURL}/api/auth/login`, { email, password });
             localStorage.setItem('token', res.data.token);
             onLogin();
             navigate('/admin');
